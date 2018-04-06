@@ -14,4 +14,3 @@ Bob's and Sam's lives got flipped upside down because it started snowing.
 
 Sam was a turtle and got stuck in the snow, oh no!
 '''
-
