@@ -11,6 +11,7 @@ There once was a penguin named Bob. The penguin had a friend named Sam.
 They went to school together. 
 
 Bob's and Sam's lives got flipped upside down because it started snowing. 
+They built a snowman and played in the snow. But then they got cold. 
 
 '''
 
