@@ -29,8 +29,9 @@ if __name__=='__main__':
 	#parse image to use in thresholding
 	cv2.imwrite("frame%d.jpg" % count, s) 
 	img = cv2.imread("frame%d.jpg" % count)
-	print(type(img))
-	thresh = cv2.threshold(img, 60, 255, cv2.THRESH_BINARY)[1]
+	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+	blur = cv2.GaussianBlur(gray, (5, 5), 0)
+	thresh = cv2.threshold(blur, 60, 255, cv2.THRESH_BINARY)[1]
 	contrs=cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
 
 	
@@ -51,7 +52,15 @@ if __name__=='__main__':
 	var=[np.var(r),np.var(b),np.var(g)]
 	#print(mean)
 	#print(var)
+	print(np.shape(contrs[0]))
+	print(np.shape(contrs[1]))
+	
+	for i in contrs[1]:
+		sides=sd.detect(contrs[1])
+		if sides=="Rect":
+			breaker=contrs[1]
+	
 
-	sides=sd.detect(s)
+
 	#print(sides)
 
