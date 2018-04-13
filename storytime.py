@@ -14,4 +14,5 @@ Bob's and Sam's lives got flipped upside down because it started snowing.
 They built a snowman and played in the snow. But then they got cold. 
 
 Sam was a turtle and got stuck in the snow, oh no!
+It stopped snowing.
 '''
