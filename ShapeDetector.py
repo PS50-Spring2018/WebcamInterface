@@ -3,8 +3,20 @@ import cv2
 	
 def detect(self, c):
 	# initialize the shape name and approximate the contour
+	contours,hierarchy = cv2.findContours(thresh, 1, 2)
 	
-	peri = cv2.arcLength(c, True)
-	approx = cv2.approxPolyDP(c, 0.04 * peri, True)
+	return contours
 
-	return approx
+def circle(cnt): 
+    
+	cnt = contours[0]
+
+	(x,y),radius = cv2.minEnclosingCircle(cnt)
+
+	center = (int(x),int(y))
+
+	radius = int(radius)
+
+	cv2.circle(img,center,radius,(0,255,0),2)
+
+	return center, radius 
