@@ -3,6 +3,7 @@
 # Import opencv
 import cv2
 import time
+import numpy as np
 
 # Function for displaying continuous video stream
 # n: Camera number on computer (usually n=0 for built-in webcam)
@@ -43,7 +44,8 @@ def snap(n=0):
 
 	cv2.destroyWindow("preview")
 	vc.release()
-
+	#frame=np.array(frame)
+	#print('size', np.shape(frame))
 	return frame
 
 
@@ -53,8 +55,7 @@ if __name__=='__main__':
 	#stream()
 
 	# #Uncomment to take single snap
-	#s = snap()
-	#print(s)
+	##print(s)
 
 
 
