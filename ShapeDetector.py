@@ -3,7 +3,14 @@ import cv2
 	
 def detect(self, c):
 	# initialize the shape name and approximate the contour
-	contours,hierarchy = cv2.findContours(thresh, 1, 2)
+	contours,hierarchy = cv2.findContours(c, 1, 2)
+	
+	for i in range(hierarchy):
+
+		print(len(contours[i]))
+	
+
+
 	
 	return contours
 
