@@ -1,22 +1,41 @@
-#remember conda install imutils
 import cv2
+import numpy as np
 	
-def detect(self, c):
+def detect(self, s):
 	# initialize the shape name and approximate the contour
-	contours,hierarchy = cv2.findContours(c, 1, 2)
+	#contours,hierarchy = cv2.findContours(c, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+	#print(img)
+	gray = cv2.cvtColor(s, cv2.COLOR_BGR2GRAY)
+	#print(gray)
+	blur = cv2.GaussianBlur(gray, (5, 5), 0)
+	#print(blur)
+	thresh = cv2.threshold(blur, 60, 255, cv2.THRESH_BINARY)[1]
+	#ask tim about the module not allowing thresh to pass
 	
-	for i in range(hierarchy):
+	_, cont,hierarchy = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+	center=[]
+	radii=[]
 
-		print(len(contours[i]))
+	for line in cont:
+
+		temp=circle(s,line)
+		
+		center.append(temp[0])
+		
+		radii.append(temp[1])
+	
+	radii=np.array(radii)
+	
+	ind=np.argmax(radii)
+	#for i in range(hierarchy):
+
+	#	print(circle(contours[i]))
 	
 
+	return center[ind],radii[ind]
 
-	
-	return contours
-
-def circle(cnt): 
+def circle(img,cnt): 
     
-	cnt = contours[0]
 
 	(x,y),radius = cv2.minEnclosingCircle(cnt)
 
