@@ -27,10 +27,10 @@ def detect(self, s):
 	radii=np.array(radii)
 	
 	ind=np.argmax(radii)
+
 	#for i in range(hierarchy):
 
 	#	print(circle(contours[i]))
-	
 
 	return center[ind],radii[ind]
 
@@ -43,6 +43,14 @@ def circle(img,cnt):
 
 	radius = int(radius)
 
-	cv2.circle(img,center,radius,(0,255,0),2)
+	#cv2.circle(img,center,radius,(0,255,0),2)
 
 	return center, radius 
+
+
+def circledetect(x,y,center,radius):
+	vect=np.array([(x-center[0]),(y-center[0])])
+	if np.linalg.norm(vect)<radius: 
+		return True
+	else:
+		return False 

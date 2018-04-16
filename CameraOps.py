@@ -29,8 +29,13 @@ def stream(n=0):
 def snap(n=0):
 	cv2.namedWindow("preview")
 	vc = cv2.VideoCapture(n)
-
+	#added the wait to allow the webcam to focus
+	cv2.waitKey(500)
+	
 	if vc.isOpened(): # try to get the first frame
+		
+		#key = cv2.waitKey(50)
+
 	    rval, frame = vc.read()
 	    #was added to save the image as 
 	    cv2.imwrite("frame%d.jpg" % n, frame) 
