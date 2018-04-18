@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 import ShapeDetector as sd
 import CameraOps as co
-
+from matplotlib import image as im
 
 # Function for displaying continuous video stream
 # n: Camera number on computer (usually n=0 for built-in webcam)
@@ -28,18 +28,25 @@ if __name__=='__main__':
 
 
 	
-	cv2.imwrite("frame%d.jpg" % count, s) 
+	cv2.imwrite("frame%d.jpg" % count, s)
+
 	np.save("frame%d_np.npy" % count,s)
+	
 	img = cv2.imread("frame%d.jpg" % count)
 	
-	center, radius=sd.detect(sd, img)
-
-	print(center,radius)
-	cv2.namedWindow("test")
-	cv2.imshow("test",cv2.circle(img,center,radius,(0,255,0),3))
-	#print(img.shape[0],img.shape[1])
+	cv2.namedWindow("Display")
 	
-
+	center, radius=sd.detect(sd, img)
+	
+	cv2.imshow("Display",cv2.circle(img,center,radius,(0,255,0),2))
+	
+	cv2.waitKey(0)
+	
+	print(center,radius)
+	
+	#print(img.shape[0],img.shape[1])
+	#im.imread("frame%d.jpg" % count)
+"""
 	for i in range(int(img.shape[0]/5)):
 		for j in range(img.shape[1]):
 			
@@ -85,3 +92,5 @@ if __name__=='__main__':
 	#need to calculate the mean and variance within the circle only 
 	mean=[np.mean(r),np.mean(b),np.mean(g)]	
 	var=[np.var(r),np.var(b),np.var(g)]
+"""
+

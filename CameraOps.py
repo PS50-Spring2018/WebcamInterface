@@ -27,10 +27,11 @@ def stream(n=0):
 # Function taking a single picture from webcam and returning it in array form
 # n: Camera number on computer (usually n=0 for built-in webcam)
 def snap(n=0):
-	cv2.namedWindow("preview")
+	#cv2.namedWindow("preview")
 	vc = cv2.VideoCapture(n)
+
 	#added the wait to allow the webcam to focus
-	cv2.waitKey(500)
+	cv2.waitKey(200)
 	
 	if vc.isOpened(): # try to get the first frame
 		
@@ -46,7 +47,7 @@ def snap(n=0):
 	    rval = False
 	    frame = None
 
-	cv2.destroyWindow("preview")
+	#cv2.destroyWindow("preview")
 	vc.release()
 
 	return frame
