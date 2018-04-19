@@ -24,7 +24,7 @@ class Processor:
 	def iteration(self):
 		
 
-		initial_img = co.snap(1)
+		initial_img = co.snap(0)
 
 		r1,r2,r3,r4,r5=np.array([]),np.array([]),np.array([]),np.array([]),np.array([])
 		b1,b2,b3,b4,b5=np.array([]),np.array([]),np.array([]),np.array([]),np.array([])
@@ -33,7 +33,7 @@ class Processor:
 		cv2.imwrite("frame%d.jpg" % self.count, initial_img)
 
 		np.save("frame%d_np.npy" % self.count,initial_img)
-		name = time.time()
+		name = int(time.time())
 		
 		img = cv2.imread("frame%d.jpg" % self.count)
 		
@@ -94,8 +94,8 @@ class Processor:
 		mean=[np.mean(r),np.mean(b),np.mean(g)]	
 		var=[np.var(r),np.var(b),np.var(g)]
 
-		c = csvSave(name,mean,var,center,radius)
-		c.save()
+
+		csvSave.save(name,mean,var)
 		return mean,var
 
 		self.count+=1
