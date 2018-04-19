@@ -6,7 +6,7 @@ import numpy as np
 import ShapeDetector as sd
 import CameraOps as co
 from matplotlib import image as im
-
+from Processor import Processor
 # Function for displaying continuous video stream
 # n: Camera number on computer (usually n=0 for built-in webcam)
 # Exit video by clicking into video and pressing ESC key
@@ -15,22 +15,28 @@ from matplotlib import image as im
 
 if __name__=='__main__':
 
+	#add user input for time intervals and total time
+
 	#Uncomment to take single snap
 	#add n in the future to distinguish images from one another, this might be a time 
-	
+	#co.stream(1)
 	#change this to 1 to use the webcam
-	s = co.snap(0)
-	count=0
+	time=20000
+	interv=4000
+	p=Processor(time,interv)
+	p.run()
+
+
 	
+"""
 	r1,r2,r3,r4,r5=np.array([]),np.array([]),np.array([]),np.array([]),np.array([])
 	b1,b2,b3,b4,b5=np.array([]),np.array([]),np.array([]),np.array([]),np.array([])
 	g1,g2,g3,g4,g5=np.array([]),np.array([]),np.array([]),np.array([]),np.array([])
 
-
 	
-	cv2.imwrite("frame%d.jpg" % count, s)
+	cv2.imwrite("frame%d.jpg" % count, initial_img)
 
-	np.save("frame%d_np.npy" % count,s)
+	np.save("frame%d_np.npy" % count,initial_img)
 	
 	img = cv2.imread("frame%d.jpg" % count)
 	
@@ -42,7 +48,7 @@ if __name__=='__main__':
 	
 	cv2.waitKey(0)
 	
-	print(center,radius)
+	print(center,radius)"""
 	
 	#print(img.shape[0],img.shape[1])
 	#im.imread("frame%d.jpg" % count)

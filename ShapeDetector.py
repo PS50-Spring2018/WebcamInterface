@@ -1,14 +1,14 @@
 import cv2
 import numpy as np
 	
-def detect(self, s):
+def detect(self, initial_img):
 	# initialize the shape name and approximate the contour
 	#contours,hierarchy = cv2.findContours(c, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 	#print(img)
 
 	#derived from https://www.pyimagesearch.com/2016/02/08/opencv-shape-detection/
 
-	gray = cv2.cvtColor(s, cv2.COLOR_BGR2GRAY)
+	gray = cv2.cvtColor(initial_img, cv2.COLOR_BGR2GRAY)
 	#print(gray)
 	blur = cv2.GaussianBlur(gray, (5, 5), 0)
 	#print(blur)
@@ -19,7 +19,7 @@ def detect(self, s):
 	#find contours isn't working
 	_, cont,hierarchy = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
 	cv2.imshow("test",cv2.drawContours(thresh, cont, 5, (0,255,0), 8))
-	cv2.waitKey(0)
+	
 
 	
 
@@ -28,7 +28,11 @@ def detect(self, s):
 
 	for line in cont:
 
-		temp=circle(s,line)
+		#print(line)
+
+		approx = cv2.approxPolyDP(line, 0.01 * cv2.arcLength(line, True), True)
+
+		temp=circle(line)
 		
 		center.append(temp[0])
 		
@@ -44,7 +48,7 @@ def detect(self, s):
 
 	return center[ind],radii[ind]
 
-def circle(img,cnt): 
+def circle(cnt): 
     
 
 	(x,y),radius = cv2.minEnclosingCircle(cnt)
