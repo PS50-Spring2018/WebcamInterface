@@ -8,48 +8,54 @@ import csvSave as csvSave
 
 class Processor:
 	def __init__(self, time, interv):
+		
 		self.t=time
+		
 		self.interv=interv
+		
 		self.count=0
 
 	def run(self):
 		
 
 		for i in range(int(self.t/self.interv)):
+			#runs a single image process
 			tempM,tempV=self.iteration()
+			#waits for the determined intercal
 			cv2.waitKey(self.interv)
+			#prints output,supress post testing
 			print(tempM,tempV)
-			#	here add the csv read out for the mean, var#
-
+			
 	def iteration(self):
 		
-
+		#change to 1 for functionality of the webcam
 		initial_img = co.snap(0)
 
-		r1,r2,r3,r4,r5=np.array([]),np.array([]),np.array([]),np.array([]),np.array([])
-		b1,b2,b3,b4,b5=np.array([]),np.array([]),np.array([]),np.array([]),np.array([])
-		g1,g2,g3,g4,g5=np.array([]),np.array([]),np.array([]),np.array([]),np.array([])
-
-		cv2.imwrite("frame%d.jpg" % self.count, initial_img)
-
-		np.save("frame%d_np.npy" % self.count,initial_img)
 		name = int(time.time())
+
+		cv2.imwrite("frame%d.jpg" % name, initial_img)
+
+		np.save("frame%d_np.npy" % name,initial_img)
 		
-		img = cv2.imread("frame%d.jpg" % self.count)
+		img = cv2.imread("frame%d.jpg" % name)
 		
 		cv2.namedWindow("Display")
 		
 		center, radius=sd.detect(sd, img)
 		#temp
 		center=(100,100)
+		#temp
 		radius=20
+
 		cv2.imshow("Display",cv2.circle(img,center,radius,(0,255,0),2))
 	
 		#enable to test image quality
 		#cv2.waitKey(0)
 		
-		#print(center,radius)
-
+		r1,r2,r3,r4,r5=np.array([]),np.array([]),np.array([]),np.array([]),np.array([])
+		b1,b2,b3,b4,b5=np.array([]),np.array([]),np.array([]),np.array([]),np.array([])
+		g1,g2,g3,g4,g5=np.array([]),np.array([]),np.array([]),np.array([]),np.array([])
+		
 		for i in range(int(img.shape[0]/5)):
 			for j in range(img.shape[1]):
 			
@@ -96,6 +102,7 @@ class Processor:
 
 
 		csvSave.save(name,mean,var)
+
 		return mean,var
 
 		self.count+=1
