@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 import CameraOps as co
 import ShapeDetector as sd
+import csvSave as csvSave
 
 class Processor:
 	def __init__(self, time, interv):
@@ -32,6 +33,7 @@ class Processor:
 		cv2.imwrite("frame%d.jpg" % self.count, initial_img)
 
 		np.save("frame%d_np.npy" % self.count,initial_img)
+		name = time.time()
 		
 		img = cv2.imread("frame%d.jpg" % self.count)
 		
@@ -92,6 +94,8 @@ class Processor:
 		mean=[np.mean(r),np.mean(b),np.mean(g)]	
 		var=[np.var(r),np.var(b),np.var(g)]
 
+		c = csvSave(name,mean,var,center,radius)
+		c.save()
 		return mean,var
 
 		self.count+=1
