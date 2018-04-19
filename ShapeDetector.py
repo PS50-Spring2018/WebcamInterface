@@ -16,21 +16,20 @@ def detect(self, initial_img):
 	#ask tim about the allowing thresh to pass
 
 	cv2.namedWindow("test")
+	cv2.imshow("test",thresh)
+	cv2.waitKey(0)
 	#find contours isn't working
 	_, cont,hierarchy = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
-	cv2.imshow("test",cv2.drawContours(thresh, cont, 5, (0,255,0), 8))
-	
+	print(len(cont))
 
-	
+	cv2.imshow("test",cv2.drawContours(thresh, cont, -1, (0,255,0), 8))
 
 	center=[]
 	radii=[]
 
 	for line in cont:
 
-		#print(line)
-
-		approx = cv2.approxPolyDP(line, 0.01 * cv2.arcLength(line, True), True)
+		line = cv2.approxPolyDP(line, 0.01 * cv2.arcLength(line, True), True)
 
 		temp=circle(line)
 		
@@ -42,10 +41,9 @@ def detect(self, initial_img):
 	
 	ind=np.argmin(radii)
 
-	#for i in range(hierarchy):
-
-	#	print(circle(contours[i]))
-
+	print(center[ind],radii[ind])
+	cv2.imshow("test",cv2.circle(thresh,center[ind],radii[ind],(0,255,0),2))
+	cv2.waitKey(0)
 	return center[ind],radii[ind]
 
 def circle(cnt): 
@@ -56,8 +54,6 @@ def circle(cnt):
 	center = (int(x),int(y))
 
 	radius = int(radius)
-
-	#cv2.circle(img,center,radius,(0,255,0),2)
 
 	return center, radius 
 

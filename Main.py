@@ -1,11 +1,4 @@
-# Example for how to use the opencv module to campure webcam images
 
-# Import opencv
-"""import cv2
-import numpy as np
-import ShapeDetector as sd
-import CameraOps as co
-from matplotlib import image as im"""
 from Processor import Processor
 # Function for displaying continuous video stream
 # n: Camera number on computer (usually n=0 for built-in webcam)
@@ -25,5 +18,5 @@ if __name__=='__main__':
 	interv=int(float(input("How often do you want to check? ")))
 	#constructor
 	p=Processor(time,interv)
-	#this function  runs all iterations of the processor class
+	#this function  runs all iterations of the processor class as defined by the tine and interval
 	p.run()
