@@ -42,8 +42,11 @@ def detect(self, initial_img):
 	ind=np.argmin(radii)
 
 	print(center[ind],radii[ind])
+
 	cv2.imshow("test",cv2.circle(thresh,center[ind],radii[ind],(0,255,0),2))
+
 	cv2.waitKey(0)
+
 	return center[ind],radii[ind]
 
 def circle(cnt): 
