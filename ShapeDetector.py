@@ -39,7 +39,7 @@ def detect(self, initial_img):
 	
 	radii=np.array(radii)
 	
-	ind=np.argmin(radii)
+	ind=np.argmax(radii)
 
 	print(center[ind],radii[ind])
 
