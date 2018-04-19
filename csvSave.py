@@ -2,7 +2,7 @@ import csv as csv
 	
 def save(file,mean,variance): 
 
-	with open('summary.csv','w+') as csvfile:
+	with open('summary.csv','a') as csvfile:
 	
 		swriter = csv.writer(csvfile)
 	
