@@ -7,8 +7,9 @@ import ShapeDetector as sd
 import csvSave as csvSave
 
 class Processor:
-	def __init__(self, time, interv):
-		
+	def __init__(self, time, interv,rxn_id):
+		self.reaction_id=rxn_id
+
 		self.t=time
 		
 		self.interv=interv
