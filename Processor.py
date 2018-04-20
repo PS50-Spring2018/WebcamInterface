@@ -4,6 +4,8 @@ import numpy as np
 import CameraOps as co
 import ShapeDetector as sd
 import csvSave as csvSave
+import os
+import datetime
 
 class Processor:
 	def __init__(self, time, interv,rxn_id):
@@ -17,6 +19,8 @@ class Processor:
 
 	def run(self):
 		
+		if not os.path.exists("/Users/shreyamenon/Dropbox/%s" % self.reaction_id):
+			os.makedirs("/Users/shreyamenon/Dropbox/%s" % self.reaction_id)
 
 		for i in range(int(self.t/self.interv)):
 			#runs a single image process
@@ -27,18 +31,24 @@ class Processor:
 			#prints output,supress post testing
 			print(tempM,tempV)
 			
+	def getTime(self):
+		currentDT = datetime.datetime.now()
+		time = currentDT.strftime('%Y%m%d%H%M%s')
+		return time
+	
 	def iteration(self):
 		
 		#change to 1 for functionality of the webcam
 		initial_img = co.snap(0)
 
-		name = int(time.time())
+		name = self.getTime()
 
-		cv2.imwrite("frame%d.jpg" % name, initial_img)
+		cv2.imwrite("frame%s.jpg" % name, initial_img)
 
-		np.save("frame%d_np.npy" % name,initial_img)
+		np.save("/Users/shreyamenon/Dropbox/%s/frame%s.npy" % (self.reaction_id,name),initial_img)
+		#np.save("frame%s_np.npy" % name,initial_img)
 		
-		img = cv2.imread("frame%d.jpg" % name)
+		img = cv2.imread("frame%s.jpg" % name)
 		
 		#cv2.namedWindow("Display")
 		
