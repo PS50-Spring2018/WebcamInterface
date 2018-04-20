@@ -15,14 +15,15 @@ def detect(self, initial_img):
 	thresh = cv2.threshold(blur, 60, 255, cv2.THRESH_BINARY)[1]
 	#ask tim about the allowing thresh to pass
 
-	cv2.namedWindow("test")
+	#cv2.namedWindow("test")
+
 	cv2.imshow("test",thresh)
-	cv2.waitKey(0)
+	#cv2.waitKey(0)
 	#find contours isn't working
 	_, cont,hierarchy = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
-	print(len(cont))
+	#print(len(cont))
 
-	cv2.imshow("test",cv2.drawContours(thresh, cont, -1, (0,255,0), 8))
+	#cv2.imshow("test",cv2.drawContours(thresh, cont, -1, (0,255,0), 8))
 
 	center=[]
 	radii=[]
@@ -43,9 +44,10 @@ def detect(self, initial_img):
 
 	print(center[ind],radii[ind])
 
-	cv2.imshow("test",cv2.circle(thresh,center[ind],radii[ind],(0,255,0),2))
+	for i in range(len(center)):
+		cv2.imshow("test",cv2.circle(initial_img,center[i],radii[i],(0,255,0),2))
 
-	cv2.waitKey(0)
+	#cv2.waitKey(0)
 
 	return center[ind],radii[ind]
 

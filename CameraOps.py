@@ -31,7 +31,7 @@ def snap(n=0):
 	vc = cv2.VideoCapture(n)
 
 	#added the wait to allow the webcam to focus
-	cv2.waitKey(200)
+	cv2.waitKey(500)
 	
 	if vc.isOpened(): # try to get the first frame
 		

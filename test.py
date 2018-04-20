@@ -10,7 +10,7 @@ import csvSave as csvSave
 if __name__=='__main__':
 	initial_img = co.snap(0)
 
-	name = int(time.time())
+	
 
 	cv2.imwrite("test.jpg", initial_img)
 
@@ -33,10 +33,10 @@ if __name__=='__main__':
 	_, cont,hierarchy = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
 
 
-	cv2.imshow("Display",thresh)
-	cv2.waitKey(0)
+	cv2.imshow("Display",img)
+	cv2.waitKey(5000)
 	for i in range(len(cont)):
 		cv2.imshow("Cont",cv2.drawContours(white, cont, i, (0,255,0), 8))
 		center,radii=sd.circle(cont[i])
-		cv2.imshow("test",cv2.circle(white,center,radii,(0,255,0),2))
+		cv2.imshow("Cont",cv2.circle(white,center,radii,(0,255,0),2))
 		cv2.waitKey(0)
