@@ -14,6 +14,7 @@ class Processor:
 		self.reaction_id=rxn_id
 	
 		self.interv=interv
+		self.t  = time
 		
 		self.count=0
 
@@ -27,7 +28,7 @@ class Processor:
 			#runs a single image process
 			tempM,tempV=self.iteration()
 			
-			time.sleep(self.interv) 
+			time.sleep(self.interv/1000) 
 			
 			#print(tempM,tempV)
 			
