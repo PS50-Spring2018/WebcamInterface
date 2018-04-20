@@ -19,8 +19,8 @@ class Processor:
 
 	def run(self):
 		
-		if not os.path.exists("/Users/shreyamenon/Dropbox/%s" % self.reaction_id):
-			os.makedirs("/Users/shreyamenon/Dropbox/%s" % self.reaction_id)
+		#if not os.path.exists("/Users/shreyamenon/Dropbox/%s" % self.reaction_id):
+		#	os.makedirs("/Users/shreyamenon/Dropbox/%s" % self.reaction_id)
 
 		for i in range(int(self.t/self.interv)):
 			#runs a single image process
@@ -31,21 +31,24 @@ class Processor:
 			#prints output,supress post testing
 			print(tempM,tempV)
 			
-	def getTime(self):
-		currentDT = datetime.datetime.now()
-		time = currentDT.strftime('%Y%m%d%H%M%s')
-		return time
-	
+	"""def getTime(self):
+					currentDT = datetime.datetime.now()
+					time=currentDT
+					
+					#time=currentDT.strftime('%Y%m%d%H%M%s')
+					return time
+				"""
 	def iteration(self):
 		
 		#change to 1 for functionality of the webcam
 		initial_img = co.snap(0)
 
-		name = self.getTime()
+		#name = self.getTime()
+		name= int(time.time())
 
 		cv2.imwrite("frame%s.jpg" % name, initial_img)
 
-		np.save("/Users/shreyamenon/Dropbox/%s/frame%s.npy" % (self.reaction_id,name),initial_img)
+		#np.save("/Users/shreyamenon/Dropbox/%s/frame%s.npy" % (self.reaction_id,name),initial_img)
 		#np.save("frame%s_np.npy" % name,initial_img)
 		
 		img = cv2.imread("frame%s.jpg" % name)
@@ -72,12 +75,16 @@ class Processor:
 			down=i
 
 			if mask.shape[0]<center[0]+right:
+				
 				right=center[0]-mask.shape[0]+1
-			if mask.shape[0]>center[0]-left:
-				left=center[0]
+			if 0>center[0]+up:
+				
+				left=-center[0]
 			if mask.shape[1]<center[1]-down:
+				
 				down=center[1]-mask.shape[1]+1
-			if mask.shape[1]>center[1]+up:
+			if 0>center[1]+up:
+				
 				up=-center[1]
 
 			delta=int(np.sqrt(int(radius)**2-int(i)**2))

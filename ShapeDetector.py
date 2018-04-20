@@ -12,25 +12,25 @@ def detect(self, initial_img):
 	#print(gray)
 	blur = cv2.GaussianBlur(gray, (5, 5), 0)
 	#print(blur)
-	thresh = cv2.threshold(blur, 60, 255, cv2.THRESH_BINARY)[1]
+	thresh = cv2.threshold(blur, 60, 255, cv2.THRESH_BINARY_INV)[1]
 	#ask tim about the allowing thresh to pass
 
 	#cv2.namedWindow("test")
 
 	cv2.imshow("test",thresh)
-	#cv2.waitKey(0)
+	
 	#find contours isn't working
 	_, cont,hierarchy = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
-	#print(len(cont))
-
-	#cv2.imshow("test",cv2.drawContours(thresh, cont, -1, (0,255,0), 8))
+	print(len(cont))
+	cv2.imshow("test",cv2.drawContours(thresh.copy(), cont, -1, (0,255,0), 8))
+	cv2.waitKey(0)
 
 	center=[]
 	radii=[]
 
 	for line in cont:
 
-		line = cv2.approxPolyDP(line, 0.01 * cv2.arcLength(line, True), True)
+		#line = cv2.approxPolyDP(line, 0.01 * cv2.arcLength(line, True), True)
 
 		temp=circle(line)
 		
@@ -42,13 +42,16 @@ def detect(self, initial_img):
 	
 	ind=np.argmax(radii)
 
-	print(center[ind],radii[ind])
+	#for i in range(len(radii)):
+
+		#print(center[i],radii[i])
 
 	for i in range(len(center)):
+
 		cv2.imshow("test",cv2.circle(initial_img,center[i],radii[i],(0,255,0),2))
 
-	#cv2.waitKey(0)
-
+		cv2.waitKey(0)
+	print(radii[ind])
 	return center[ind],radii[ind]
 
 def circle(cnt): 
