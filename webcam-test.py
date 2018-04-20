@@ -1,58 +1,21 @@
 # Example for how to use the opencv module to campure webcam images
 
 # Import opencv
-import cv2
+"""import cv2
 import numpy as np
 import ShapeDetector as sd
 import CameraOps as co
-
-
+from matplotlib import image as im"""
+from Processor import Processor
 # Function for displaying continuous video stream
 # n: Camera number on computer (usually n=0 for built-in webcam)
 # Exit video by clicking into video and pressing ESC key
-def stream(n=0):
-	cv2.namedWindow("preview")
-	vc = cv2.VideoCapture(n)
 
-	if vc.isOpened(): # try to get the first frame
-	    rval, frame = vc.read()
-	    print('frame\n', frame[0][:])
-	else:
-	    rval = False
-	    frame = None
-
-	while rval:
-	    cv2.imshow("preview", frame)
-	    rval, frame = vc.read()
-	    key = cv2.waitKey(20)
-	    if key == 27: # exit on ESC
-	        break
-
-	cv2.destroyWindow("preview")
-	vc.release()
-	
-# Function taking a single picture from webcam and returning it in array form
-# n: Camera number on computer (usually n=0 for built-in webcam)
-def snap(n=0):
-	cv2.namedWindow("preview")
-	vc = cv2.VideoCapture(n)
-
-	if vc.isOpened(): # try to get the first frame
-	    rval, frame = vc.read()
-	    print('frame\n', frame[0][:])
-	else:
-	    rval = False
-	    frame = None
-
-	cv2.destroyWindow("preview")
-	vc.release()
-	#frame=np.array(frame)
-	#print('size', np.shape(frame))
-	return frame
 
 
 if __name__=='__main__':
 
+<<<<<<< HEAD
 	#Uncomment to take single snap
 	#add n in the future to distinguish images from one another, this might be a time 
 	
@@ -75,45 +38,17 @@ if __name__=='__main__':
 	blur = cv2.GaussianBlur(gray, (5, 5), 0)
 
 	thresh = cv2.threshold(blur, 60, 255, cv2.THRESH_BINARY)[1]
+=======
+>>>>>>> be9ef27867c95d5b7b2ea4684975d4a083855868
 	
-	cont=sd.detect(thresh)
+	#co.stream(1)
+	#change this to 1 to use the webcam
 
-	center=[]
-	radii=[]
-
-	for line in cont:
-
-		temp=circle(line)
-		
-		center.append(temp[0])
-		
-		radii.append(temp[1])
+	#get user input for time, interv
+	time=int(float(input("How long would you like to analyze for? ")))
 	
-	radii=np.array(radii)
-	
-	ind=np.argmax(radii)
-
-	beaker=center[ind],radius[ind]
-
-	for i in range(s.shape[0]):
-	
-		for j in range(s.shape[1]):
-						
-			r.append(s[i][j][0])
-			b.append(s[i][j][1])
-			g.append(s[i][j][2])
-					
-			
-			r=np.array(r)
-			
-			b=np.array(b)
-			
-			g=np.array(g)
-	
-			mean=[np.mean(r),np.mean(b),np.mean(g)]
-			var=[np.var(r),np.var(b),np.var(g)]
-
-	
-	
-
-
+	interv=int(float(input("How often do you want to check? ")))
+	#constructor
+	p=Processor(time,interv)
+	#this function  runs all iterations of the processor class
+	p.run()
