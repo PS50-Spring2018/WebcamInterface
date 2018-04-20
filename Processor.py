@@ -28,7 +28,7 @@ class Processor:
 			#runs a single image process
 			tempM,tempV=self.iteration()
 			
-			time.sleep(self.interv/1000) 
+			time.sleep(self.interv) 
 			
 			#print(tempM,tempV)
 			

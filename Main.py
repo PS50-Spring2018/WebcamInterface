@@ -16,9 +16,9 @@ if __name__=='__main__':
 	#get user input for time, interv
 	reaction_id=input("What is the reaction ID? ")
 
-	time=int(float(input("How long would you like to analyze for (ms)? ")))
+	time=int(float(input("How long would you like to analyze for (s)? ")))
 	
-	interv=int(float(input("How often do you want to check(ms)? ")))
+	interv=int(float(input("How often do you want to check(s)? ")))
 	#constructor
 	p=Processor(time,interv,reaction_id)
 	#this function  runs all iterations of the processor class as defined by the tine and interval
