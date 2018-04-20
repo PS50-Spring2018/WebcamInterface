@@ -6,15 +6,19 @@ import ShapeDetector as sd
 import csvSave as csvSave
 import os
 import datetime
+import matplotlib.pyplot as plt
 
 
 if __name__=='__main__':
 	
-	st=''
+	st='2018042016161524255371.npy'
 	img=np.load(st)
-	cv2.namedWindow("Display")
-	cv2.imshow("Display",img)
-	cv2.waitKey(0)
+	plt.figure()
+	plt.imshow(img)
+	plt.show()
+	#cv2.namedWindow("Display")
+	#cv2.imshow("Display",img)
+	#cv2.waitKey(0)
 
 
 
