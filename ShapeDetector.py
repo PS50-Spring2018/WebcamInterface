@@ -46,12 +46,12 @@ def detect(self, initial_img):
 
 		#print(center[i],radii[i])
 
-	for i in range(len(center)):
+	#for i in range(len(center)):
 
-		cv2.imshow("test",cv2.circle(initial_img,center[i],radii[i],(0,255,0),2))
+		#cv2.imshow("test",cv2.circle(initial_img,center[i],radii[i],(0,255,0),2))
 
-		cv2.waitKey(0)
-	print(radii[ind])
+		#cv2.waitKey(0)
+	#print(radii[ind])
 	return center[ind],radii[ind]
 
 def circle(cnt): 

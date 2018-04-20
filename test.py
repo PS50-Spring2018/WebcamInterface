@@ -8,6 +8,7 @@ import csvSave as csvSave
 
 
 if __name__=='__main__':
+	
 	initial_img = co.snap(0)
 
 	
