@@ -45,7 +45,7 @@ class Processor:
 
 		cv2.imwrite("frame%s.jpg" % name, initial_img)
 
-		np.save("/Users/shreyamenon/Dropbox/%s/frame%s.npy" % (self.reaction_id,name),initial_img)
+		np.save("/Users/shreyamenon/Dropbox/%s/%s.npy" % (self.reaction_id,name),initial_img)
 		#np.save("frame%s_np.npy" % name,initial_img)
 		
 		img = cv2.imread("frame%s.jpg" % name)
