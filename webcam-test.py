@@ -55,7 +55,10 @@ if __name__=='__main__':
 
 	#Uncomment to take single snap
 	#add n in the future to distinguish images from one another, this might be a time 
-	s = co.snap(1)
+	
+	# stream()
+	
+	s = co.snap(0)
 	count=0
 	
 	r=[]
