@@ -1,4 +1,3 @@
-
 import time
 import cv2
 import numpy as np
@@ -55,8 +54,8 @@ class Processor:
 		
 		center, radius=sd.detect(sd, img)
 		print(center,radius)
-		cv2.imshow("Display",cv2.circle(img,center,radius,(0,255,0),2))
-		cv2.waitKey(0)
+		#cv2.imshow("Display",cv2.circle(img,center,radius,(0,255,0),2))
+		#cv2.waitKey(0)
 	
 		mask=np.zeros((int(img.shape[0]),int(img.shape[1]),3))
 	
@@ -98,8 +97,6 @@ class Processor:
 		return mean,var
 
 		self.count+=1
-
-
 
 		
 		"""
@@ -149,6 +146,5 @@ class Processor:
 											g5=np.append(g5,img[5*i+4][j][2])			"""
 				
 		"""r=np.append(np.append(np.append(r1,r2),np.append(r3,r4)),r5)
-								b=np.append(np.append(np.append(b1,b2),np.append(b3,b4)),b5)
-								g=np.append(np.append(np.append(g1,g2),np.append(g3,g4)),g5)"""
-		
+			b=np.append(np.append(np.append(b1,b2),np.append(b3,b4)),b5)
+			g=np.append(np.append(np.append(g1,g2),np.append(g3,g4)),g5)"""
