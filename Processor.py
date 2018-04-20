@@ -5,6 +5,7 @@ import numpy as np
 import CameraOps as co
 import ShapeDetector as sd
 import csvSave as csvSave
+import os
 
 class Processor:
 	def __init__(self, time, interv,rxn_id):
@@ -18,6 +19,8 @@ class Processor:
 
 	def run(self):
 		
+		if not os.path.exists("/Users/shreyamenon/Dropbox/%s" % self.reaction_id):
+			os.makedirs("/Users/shreyamenon/Dropbox/%s" % self.reaction_id)
 
 		for i in range(int(self.t/self.interv)):
 			#runs a single image process
@@ -37,7 +40,8 @@ class Processor:
 
 		cv2.imwrite("frame%d.jpg" % name, initial_img)
 
-		np.save("frame%d_np.npy" % name,initial_img)
+		np.save("/Users/shreyamenon/Dropbox/%s/frame%d.npy" % (self.reaction_id,name),initial_img)
+		#np.save("frame%d_np.npy" % name,initial_img)
 		
 		img = cv2.imread("frame%d.jpg" % name)
 		
