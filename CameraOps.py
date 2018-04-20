@@ -17,7 +17,7 @@ def stream(n=0):
 	while rval:
 	    cv2.imshow("preview", frame)
 	    rval, frame = vc.read()
-	    key = cv2.waitKey(20)
+	    #key = cv2.waitKey(20)
 	    if key == 27: # exit on ESC
 	        break
 
@@ -31,7 +31,8 @@ def snap(n=0):
 	vc = cv2.VideoCapture(n)
 
 	#added the wait to allow the webcam to focus
-	cv2.waitKey(500)
+	
+	#cv2.waitKey(500)
 	
 	if vc.isOpened(): # try to get the first frame
 		

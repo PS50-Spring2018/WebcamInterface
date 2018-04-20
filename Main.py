@@ -14,7 +14,7 @@ if __name__=='__main__':
 	#change this to 1 to use the webcam
 
 	#get user input for time, interv
-	reaction_id=int(float(input("What is the reaction ID?")))
+	reaction_id=input("What is the reaction ID? ")
 
 	time=int(float(input("How long would you like to analyze for (ms)? ")))
 	
