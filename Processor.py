@@ -92,8 +92,8 @@ class Processor:
 				up=-center[1]
 
 			delta=int(np.sqrt(int(radius)**2-int(i)**2))
-			x=np.arange(int(center[0])-left,int(center[0])+right)
-			mask[x,(center[1]+up),:]=1
+			x=np.arange(int(center[0])-left,int(center[0])+right-1)
+			mask[x,(center[1]+up-1),:]=1
 			mask[x,(center[1]-down),:]=1
 		
 
