@@ -83,7 +83,7 @@ class Processor:
 		mean=[np.mean(masked[:,:,0]),np.mean(masked[:,:,1]),np.mean(masked[:,:,2])]
 		var=[np.var(masked[:,:,0]),np.var(masked[:,:,1]),np.var(masked[:,:,2])]
 
-		csvSave.save(name,mean,var)
+		csvSave.save(self.reaction_id,name,mean,var)
 
 		return mean,var
 
