@@ -27,7 +27,7 @@ class Processor:
 			#runs a single image process
 			tempM,tempV=self.iteration()
 			
-			time.sleep(self.interv) 
+			time.sleep(self.interv/1000) 
 			
 			#print(tempM,tempV)
 			
@@ -49,15 +49,20 @@ class Processor:
 
 		cv2.imwrite("frame%s.jpg" % name, initial_img)
 		#np.save("/Users/shreyamenon/Dropbox/%s/frame%s.npy" % (self.reaction_id,name),initial_img)
-		np.save("/Users/shreyamenon/Dropbox/%s/%s.npy" % (self.reaction_id,name),initial_img)
+
 		#np.save("frame%s_np.npy" % name,initial_img)
 		
 		img = cv2.imread("frame%s.jpg" % name)
-		
+		np.save("/Users/shreyamenon/Dropbox/%s/%s.npy" % (self.reaction_id,name),circle)
+
 		#cv2.namedWindow("Display")
-		
 		center, radius=sd.detect(sd, img)
-	
+
+		circle=cv2.circle(img,center,radius,(0,255,0),2)
+		np.save("/Users/shreyamenon/Dropbox/%s/%s.npy" % (self.reaction_id,name),circle)
+
+
+		np.save()
 		#cv2.imshow("Display",cv2.circle(img,center,radius,(0,255,0),2))
 		#cv2.waitKey(0)
 	
