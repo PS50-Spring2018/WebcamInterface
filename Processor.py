@@ -7,8 +7,9 @@ import ShapeDetector as sd
 import csvSave as csvSave
 
 class Processor:
-	def __init__(self, time, interv):
-		
+	def __init__(self, time, interv,rxn_id):
+		self.reaction_id=rxn_id
+
 		self.t=time
 		
 		self.interv=interv
@@ -82,7 +83,7 @@ class Processor:
 		mean=[np.mean(masked[:,:,0]),np.mean(masked[:,:,1]),np.mean(masked[:,:,2])]
 		var=[np.var(masked[:,:,0]),np.var(masked[:,:,1]),np.var(masked[:,:,2])]
 
-		csvSave.save(name,mean,var)
+		csvSave.save(self.reaction_id,name,mean,var)
 
 		return mean,var
 
