@@ -14,12 +14,13 @@ class Processor:
 		self.reaction_id=rxn_id
 	
 		self.interv=interv
+
 		self.t  = time
 		
 		self.count=0
 
 	def run(self):
-		
+		#creates director for dropbox
 		if not os.path.exists("/Users/shreyamenon/Dropbox/%s" % self.reaction_id):
 		
 			os.makedirs("/Users/shreyamenon/Dropbox/%s" % self.reaction_id)
@@ -27,15 +28,14 @@ class Processor:
 		for i in range(int(self.t/self.interv)):
 			#runs a single image process
 			tempM,tempV=self.iteration()
-			
+			#time intervals between trials
 			time.sleep(self.interv) 
 			
-			#print(tempM,tempV)
 			
 	def getTime(self):
-		
+		#gets time
 		currentDT = datetime.datetime.now()
-		
+		#formats
 		time=currentDT.strftime('%Y%m%d%H%M%s')
 		
 		return time
@@ -62,11 +62,6 @@ class Processor:
 		circle=cv2.circle(img,center,radius,(0,255,0),2)
 		np.save("/Users/shreyamenon/Dropbox/%s/%s.npy" % (self.reaction_id,name),circle)
 
-
-		#np.save()
-		#cv2.imshow("Display",cv2.circle(img,center,radius,(0,255,0),2))
-		#cv2.waitKey(0)
-	
 		mask=np.zeros((int(img.shape[0]),int(img.shape[1]),3))
 	
 		left=radius
@@ -81,39 +76,40 @@ class Processor:
 			right=delta
 			up=i
 			down=i
-
+			#this is used to detect boundaries and ensure that there is no boudary jumping
 			if mask.shape[0]<center[0]+right:
 				
-				right=center[0]-mask.shape[0]+1
-			if 0>center[0]+up:
-				
-				left=-center[0]
-			if mask.shape[1]<center[1]-down:
-				
-				down=center[1]-mask.shape[1]+1
-			if 0>center[1]+up:
-				
-				up=-center[1]
+				right=-center[0]+mask.shape[0]-1
 
+			if 0>center[0]-left:
+				
+				left=center[0]
+			
+			if mask.shape[1]<center[1]+down:
+				
+				down=-center[1]+mask.shape[1]-1
+			
+			if 0>center[1]-up:
+				
+				up=center[1]
+			#pythagorean
 			delta=int(np.sqrt(int(radius)**2-int(i)**2))
 			
-			x=np.arange(int(center[0])-left,int(center[0])+right-1)
+			x=np.arange(int(center[0])-left,int(center[0])+right)
 
-			mask[x,(center[1]+up-1),:]=1
+			mask[x,(center[1]-up),:]=1
 
-			mask[x,(center[1]-down),:]=1
+			mask[x,(center[1]+down),:]=1
 		
-
+		#applies mask
 		zeros=np.multiply(img,mask)
-
+		#masks the predetermined noncircle area to just get vital statistics
 		masked = np.ma.masked_equal(zeros, 0)
-
+		#calculates statistics
 		mean=[np.mean(masked[:,:,0]),np.mean(masked[:,:,1]),np.mean(masked[:,:,2])]
 		
 		var=[np.var(masked[:,:,0]),np.var(masked[:,:,1]),np.var(masked[:,:,2])]
-
+		#file to save the output of the program
 		csvSave.save(self.reaction_id,name,mean,var)
 
-		return mean,var
-
-		
+			
