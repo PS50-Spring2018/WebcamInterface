@@ -102,9 +102,11 @@ class Processor:
 		
 		#applies mask
 		zeros=np.multiply(img,mask)
+		zeros = zeros[np.nonzero(zeros)] #fetch non-zero values in zero array
 		#masks the predetermined noncircle area to just get vital statistics
 		masked = np.ma.masked_equal(zeros, 0)
 		#calculates statistics
+
 		mean=[np.mean(masked[:,:,0]),np.mean(masked[:,:,1]),np.mean(masked[:,:,2])]
 		
 		var=[np.var(masked[:,:,0]),np.var(masked[:,:,1]),np.var(masked[:,:,2])]
