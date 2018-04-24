@@ -16,13 +16,17 @@ class Processor:
 		self.interv=interv
 
 		self.t  = time
+		### ADD FOLDERNAME AS ATTRIBUTE
 		
 
 	def run(self):
+		#foldername = "/Users/shreyamenon/Dropbox/%s" % self.reaction_id
+		foldername = '/Users/tim/Google Drive/Teaching/%s' % (self.reaction_id)
+
 		#creates director for dropbox
-		if not os.path.exists("/Users/shreyamenon/Dropbox/%s" % self.reaction_id):
+		if not os.path.exists(foldername):
 		
-			os.makedirs("/Users/shreyamenon/Dropbox/%s" % self.reaction_id)
+			os.makedirs(foldername)
 
 		for i in range(int(self.t/self.interv)):
 			#runs a single image process
@@ -40,6 +44,9 @@ class Processor:
 		return time
 	
 	def iteration(self):
+
+		#foldername = "/Users/shreyamenon/Dropbox/%s" % self.reaction_id
+		foldername = '/Users/tim/Google Drive/Teaching/%s' % (self.reaction_id)
 		
 		#change to 1 for functionality of the webcam
 		initial_img = co.snap(0)
@@ -59,7 +66,7 @@ class Processor:
 		center, radius=sd.detect(sd, img)
 
 		circle=cv2.circle(img,center,radius,(0,255,0),2)
-		np.save("/Users/shreyamenon/Dropbox/%s/%s.npy" % (self.reaction_id,name),circle)
+		np.save(foldername+"/%s.npy" % (name),circle)
 
 		mask=np.zeros((int(img.shape[0]),int(img.shape[1]),3))
 	
@@ -101,16 +108,34 @@ class Processor:
 			mask[x,(center[1]+down),:]=1
 		
 		#applies mask
-		zeros=np.multiply(img,mask)
-		zeros = zeros[np.nonzero(zeros)] #fetch non-zero values in zero array
+		#zeros=np.multiply(img,mask)
+
+		# Applies mask
+		img_masked = img * mask
+
+		# Goes through image and appends pixels that are in circle
+		img_nonzero = []
+		for i in range(img.shape[0]):
+			for j in range(img.shape[1]):
+				if not all(img_masked[i,j]==[0,0,0]):
+					print('$$$')
+					img_nonzero.append(img_masked[i,j])
+		img_nonzero = np.array(img_nonzero)
+
+		print('****************')
+		print('img_nonzero', img_nonzero)
+
+		#zeros = zeros[np.nonzero(zeros)] #fetch non-zero values in zero array
 		#masks the predetermined noncircle area to just get vital statistics
-		masked = np.ma.masked_equal(zeros, 0)
+		#masked = np.ma.masked_equal(zeros, 0)
 		#calculates statistics
 
-		mean=[np.mean(masked[:,:,0]),np.mean(masked[:,:,1]),np.mean(masked[:,:,2])]
+		mean=[np.mean(img_nonzero[:,0]),np.mean(img_nonzero[:,1]),np.mean(img_nonzero[:,2])]
 		
-		var=[np.var(masked[:,:,0]),np.var(masked[:,:,1]),np.var(masked[:,:,2])]
+		var=[np.var(img_nonzero[:,0]),np.var(img_nonzero[:,1]),np.var(img_nonzero[:,2])]
 		#file to save the output of the program
 		csvSave.save(self.reaction_id,name,mean,var)
+
+		return mean, var
 
 			

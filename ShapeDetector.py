@@ -30,7 +30,7 @@ def detect(self, initial_img):
 	return center[ind],radii[ind]
 
 def circle(cnt):   
-`	#fits contour to a circle
+	#fits contour to a circle
 	(x,y),radius = cv2.minEnclosingCircle(cnt)
 
 	center = (int(x),int(y))
