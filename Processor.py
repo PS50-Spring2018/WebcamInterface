@@ -17,7 +17,6 @@ class Processor:
 
 		self.t  = time
 		
-		self.count=0
 
 	def run(self):
 		#creates director for dropbox
