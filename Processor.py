@@ -9,24 +9,24 @@ import datetime
 
 class Processor:
 	
-	def __init__(self, time, interv,rxn_id):
+	def __init__(self, time, interv,rxn_id, dropbox_dir):
 		
 		self.reaction_id=rxn_id
 	
 		self.interv=interv
 
 		self.t  = time
-		### ADD FOLDERNAME AS ATTRIBUTE
 		
+		self.dropbox_dir = dropbox_dir
+		self.rxn_foldername = os.path.join(self.dropbox_dir, self.reaction_id)
 
 	def run(self):
-		#foldername = "/Users/shreyamenon/Dropbox/%s" % self.reaction_id
-		foldername = '/Users/tim/Google Drive/Teaching/%s' % (self.reaction_id)
+		
 
 		#creates director for dropbox
-		if not os.path.exists(foldername):
+		if not os.path.exists(self.rxn_foldername):
 		
-			os.makedirs(foldername)
+			os.makedirs(self.rxn_foldername)
 
 		for i in range(int(self.t/self.interv)):
 			#runs a single image process
@@ -46,7 +46,7 @@ class Processor:
 	def iteration(self):
 
 		#foldername = "/Users/shreyamenon/Dropbox/%s" % self.reaction_id
-		foldername = '/Users/tim/Google Drive/Teaching/%s' % (self.reaction_id)
+		#foldername = '/Users/tim/Google Drive/Teaching/%s' % (self.reaction_id)
 		
 		#change to 1 for functionality of the webcam
 		initial_img = co.snap(0)
@@ -66,7 +66,7 @@ class Processor:
 		center, radius=sd.detect(sd, img)
 
 		circle=cv2.circle(img,center,radius,(0,255,0),2)
-		np.save(foldername+"/%s.npy" % (name),circle)
+		np.save(self.rxn_foldername+"/%s.npy" % (name),circle)
 
 		mask=np.zeros((int(img.shape[0]),int(img.shape[1]),3))
 	

@@ -22,5 +22,9 @@ if __name__=='__main__':
 	#constructor
 	p=Processor(time,interv,reaction_id)
 	#this function  runs all iterations of the processor class as defined by the tine and interval
+	
+	dropbox_dir = "/Users/shreyamenon/Dropbox"
+	#dropbox directory
+
 	p.run()
 	
